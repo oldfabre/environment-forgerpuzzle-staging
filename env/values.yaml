@@ -91,7 +91,7 @@ tests:
 
   tests:
     repo: ssh://git@scm-git-eur.misys.global.ad:7999/to/treasury-compose.git
-    suites: webaccess
+    suites: webaccess.form_model_type.trade.Bonds.cashFlows
 
   logs:
       - /opt/finastra/kplus-front/webaccess/logs
