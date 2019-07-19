@@ -70,7 +70,7 @@ global:
 
   ingress:
     class: nginx
-    host: jx-preview.fr1cslfcvto0005.misys.global.ad
+    host: jx-staging.fr1cslfcvto0005.misys.global.ad
 
   fusionRiskIntegration: false
 
