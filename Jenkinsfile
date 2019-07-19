@@ -25,7 +25,7 @@ pipeline {
       steps {
         container('maven') {
           dir('env') {
-            sh 'jx step helm apply'
+            sh 'helm upgrade --namespace jx-staging --install --wait --force --timeout 1200 --values values.yaml jx-staging .'
           }
         }
       }
