@@ -30,6 +30,18 @@ pipeline {
         }
       }
     }
+    stage('Deploy preview env') {
+      when {
+        branch 'PR-*'
+      }
+      steps {
+        container('maven') {
+          dir('env') {
+            sh 'jx preview --name jx-preview --namespace jx-preview'
+          }
+        }
+      }
+    }
     stage('Run DDT') {
       steps {
         container('maven') {

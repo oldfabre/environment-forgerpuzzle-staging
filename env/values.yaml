@@ -26,7 +26,7 @@ prow: {}
 global:
   ingress:
     class: nginx
-    host: jx-staging.fr1cslfcvto0005.misys.global.ad
+    host: jx-preview.fr1cslfcvto0005.misys.global.ad
 
   storageClassName: nfs
 
@@ -60,7 +60,7 @@ global:
   storageClassName: nfs
   ingress:
     class: nginx
-    host: jx-staging.fr1cslfcvto0005.misys.global.ad
+    host: jx-preview.fr1cslfcvto0005.misys.global.ad
 
 treasury:
   treasury-ui:
