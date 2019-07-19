@@ -29,3 +29,116 @@ global:
     host: jx-preview.fr1cslfcvto0005.misys.global.ad
 
   storageClassName: nfs
+
+PipelineSecrets: {}
+cleanup:
+  Annotations:
+    helm.sh/hook: pre-delete
+    helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --cleanup
+controllerbuild: {}
+expose:
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --v
+  - 4
+  config:
+    domain: fr1cslfcvto0005.misys.global.ad
+    exposer: Ingress
+    http: "true"
+jenkins:
+  Servers:
+    Global:
+      EnvVars:
+        TILLER_NAMESPACE: kube-system
+prow: {}
+
+global:
+  databaseProvider: MSSQL
+  registry: registry.misys.global.ad
+  registrySecret:
+
+  storageClassName: nfs
+  kondorSharePvc: kondor-share-pv
+  numerixSharePvc: numerix-license-pv
+  krthSimuPvc: krth-simu-pv
+  sybasePvc:
+  cmrConfigPvc:
+
+  ingress:
+    class: nginx
+    host: jx-preview.fr1cslfcvto0005.misys.global.ad
+
+  fusionRiskIntegration: false
+
+treasury:
+  treasury-ui:
+    service:
+      nodePort:
+        enabled: true
+  kondor-front:
+    kondor-front-basic:
+      database:
+        internal: true
+    krth:
+      RealTimeHub:
+        KRTH_SIMU: krth_simu.params
+
+fusionrisk:
+  rvd:
+    hostIP:
+    hostPort:
+  cargo:
+    hostIP:
+    hostPort:
+
+ffc:
+  kplus:
+    hostIP:
+    hostPort:
+
+kondor-front:
+  kgrs-agent:
+    replicaCount: 2
+
+  kbs-agent:
+    replicaCount: 2
+
+  kcs-agent:
+    replicaCount: 2
+
+  kois-agent:
+    replicaCount: 2
+
+  kxls-report:
+    replicaCount: 10
+
+  kxls-realtime:
+    replicaCount: 40
+
+tests:
+  host:
+    name: webaccess
+    port: :7600 # The two points are important because if they are not here, the value is interpreted as a float
+
+  results:
+   volume:
+     name: ddt-results-new
+
+  image:
+    repository: registry.misys.global.ad/kondor/ddttests
+    tag: 348.0.131-201907040928.1345.4e7abfd
+    pullPolicy: IfNotPresent
+
+  tests:
+    repo: ssh://git@scm-git-eur.misys.global.ad:7999/to/treasury-compose.git
+    suites: webaccess
+
+  logs:
+      - /opt/finastra/kplus-front/webaccess/logs
+      - /opt/finastra/fc-kondor-insight/app/data/log
+      - /home/fusionrisk/FR Cargo/data/log
+      - /opt/finastra/kplus-front/entities/Standalone/log/peripherals
