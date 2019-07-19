@@ -43,6 +43,9 @@ pipeline {
       }
     }
     stage('Run DDT') {
+      when {
+        branch 'master'
+      }
       steps {
         container('maven') {
           dir('env') {
