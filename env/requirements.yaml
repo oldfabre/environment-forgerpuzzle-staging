@@ -17,3 +17,6 @@ dependencies:
 - name: treasury
   version: 4.0.0-20190707T082108.sha8a29e00.252
   repository: http://chartmuseum.fr1cslfcglo0082.misys.global.ad
+- name: ddt-display
+  version: 1.0.0
+  repository: http://chartmuseum.fr1cslfcglo0082.misys.global.ad
