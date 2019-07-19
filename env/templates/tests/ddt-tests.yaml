@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-ddt-test"
+  annotations:
+    "helm.sh/hook": test-success
+    app: ddt-test
+spec:
+  volumes:
+    - name: results
+      persistentVolumeClaim:
+        claimName: {{ .Values.tests.results.volume.name }}
+    {{- range .Values.tests.logs }}
+    - name: {{ . | replace "/" "" | replace " " "" | lower }}
+      emptyDir: {}
+    {{- end }}
+  restartPolicy: Never
+  containers:
+    - name: {{ .Chart.Name }}-ddt-test
+      image: {{ .Values.tests.image.repository }}:{{ .Values.tests.image.tag }}
+{{- if .Values.env }}
+      env:
+{{- range $key, $value := .Values.env }}
+      - name: {{ $key }}
+        value: {{ $value }}
+{{- end }}
+{{- end }}
+      command:
+{{- if .Values.tests.tests.suites }}
+        - python
+        - /opt/finastra/jmxbot/jmxbot.py
+        - -v
+        - {{ printf "JMXARGS:-Jhost.name=%s_-Jhost.port=%s" .Values.tests.host.name ( .Values.tests.host.port | default ":8443" | replace ":" "" ) }}
+        - -E
+        - space:_
+        - -s
+        - {{ .Values.tests.tests.suites }}
+        - --outputdir
+        - /opt/finastra/treasury/ddt/results
+        - /opt/finastra/treasury/ddt
+{{- else }}
+        - true
+{{- end }}
+      volumeMounts:
+        - name: results
+          mountPath: /opt/finastra/treasury/ddt/results
+        {{ range .Values.tests.logs -}}
+        - name: {{ . | replace "/" "" | replace " " "" | lower }}
+          mountPath: {{ . }}
+        {{ end -}}

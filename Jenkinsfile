@@ -30,5 +30,15 @@ pipeline {
         }
       }
     }
+    stage('Run DDT') {
+      steps {
+        container('maven') {
+          dir('env') {
+            sh 'kubectl delete po jx-preview-ddt-test -n jx-preview || true'
+            sh 'helm test jx-preview --timeout 1800'
+          }
+        }
+      }
+    }
   }
 }
