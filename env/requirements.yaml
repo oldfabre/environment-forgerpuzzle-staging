@@ -7,3 +7,6 @@ dependencies:
   version: 2.3.89
   repository: http://chartmuseum.jenkins-x.io
   alias: cleanup
+- name: kondor-front-internal
+  version: 348.0.131-201907060517.1357.e24e818
+  repository: http://chartmuseum.fr1cslfcglo0082.misys.global.ad
