@@ -6,7 +6,11 @@ pipeline {
     label "jenkins-maven"
   }
   environment {
-    DEPLOY_NAMESPACE = "jx-staging"
+    DEPLOY_NAMESPACE = "jx-preview"
+    CHART_REPOSITORY = "http://chartmuseum.fr1cslfcglo0082.misys.global.ad"
+    ORG = "finastra"
+    APP_NAME = "kondor-test"
+    PREVIEW_VERSION = "1"
   }
   stages {
     stage('Validate Environment') {
