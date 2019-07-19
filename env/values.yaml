@@ -57,22 +57,10 @@ jenkins:
 prow: {}
 
 global:
-  databaseProvider: MSSQL
-  registry: registry.misys.global.ad
-  registrySecret:
-
   storageClassName: nfs
-  kondorSharePvc: kondor-share-pv
-  numerixSharePvc: numerix-license-pv
-  krthSimuPvc: krth-simu-pv
-  sybasePvc:
-  cmrConfigPvc:
-
   ingress:
     class: nginx
     host: jx-staging.fr1cslfcvto0005.misys.global.ad
-
-  fusionRiskIntegration: false
 
 treasury:
   treasury-ui:
@@ -86,38 +74,6 @@ treasury:
     krth:
       RealTimeHub:
         KRTH_SIMU: krth_simu.params
-
-fusionrisk:
-  rvd:
-    hostIP:
-    hostPort:
-  cargo:
-    hostIP:
-    hostPort:
-
-ffc:
-  kplus:
-    hostIP:
-    hostPort:
-
-kondor-front:
-  kgrs-agent:
-    replicaCount: 2
-
-  kbs-agent:
-    replicaCount: 2
-
-  kcs-agent:
-    replicaCount: 2
-
-  kois-agent:
-    replicaCount: 2
-
-  kxls-report:
-    replicaCount: 10
-
-  kxls-realtime:
-    replicaCount: 40
 
 tests:
   host:
