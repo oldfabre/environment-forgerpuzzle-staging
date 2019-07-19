@@ -34,8 +34,8 @@ pipeline {
       steps {
         container('maven') {
           dir('env') {
-            sh 'kubectl delete po jx-preview-ddt-test -n jx-preview || true'
-            sh 'helm test jx-preview --timeout 1800'
+            sh 'kubectl delete po jx-staging-ddt-test -n jx-staging || true'
+            sh 'helm test jx-staging --timeout 1800'
           }
         }
       }
